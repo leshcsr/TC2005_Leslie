@@ -48,6 +48,26 @@ function numero_alitas(){
 console.log(numero_alitas());
 
 
+let contador_click = 0;
+let boton = document.getElementById("Contador_click");
+boton.innerHTML = "Cuenta los Clicks";
+boton.onclick = () => {
+    contador_click++;
+    console.log(contador_click);
+}
 
+//Arreglos
+/*
+const arreglo = ["Elemento"];
+arreglo.push("Otro elemento");
+arreglo["dos"] = 2;
+arreglo.length = 10;
+console.log(arreglo);*/
 
+//OBJETOS
+
+let objeto = {
+    atributo_1: "valor 1",
+    atributo_2: "valor 2",
+}
 
