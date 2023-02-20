@@ -7,13 +7,18 @@
             background-color: rgba(226, 226, 224, 0.765);
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <title>Hot Cakes</title>
 
 </head>
 <body>
+<div class="container">
 
-    <table>
+    <br><br><br>
+    <div class="card-panel hoverable"> 
+    <table class="striped">
         <thead>
             <tr>Receta para hacer hot cakes  sabrosos</tr>
         </thead>
@@ -44,10 +49,19 @@
             </tr>
         </tbody>
 
-    </table>
+    </table> </div>
 
     <br><br>
     <button id="Contador_click"></button>
+
+    <br><br>
+
+    <div>
+        <input id="input_texto" class="input is-primary" type="text" placeholder="Primary input">
+        <br>
+        
+
+    </div>
 
     <br><br>
 
@@ -103,8 +117,23 @@
             y mover cosas que no deben
         </p>
     </ol>
+
+
+    <h2> <img src="conversacion.png" alt="" width="30px">  Preguntas a responder de Lab 5</h2>
+    <ol>
+        <li>Describe Material design </li>
+        <p>Al menos mi experiencia fue grata, me gusto, yo use Materialize, desde que puse las etiquetas link y script mi
+            página se ve diferente. Considero que solo es cuestión de saber que elementos usar, pero en general me parecio
+            muy bueno, te hace ahorrar mucho tiempo y lineas de codigo, además se ve más bonito que si tu lo hicieras manualmente.
+        </p>
+    </ol>
+
     
-    <footer>Fuentes Consultadas:</footer>
+
+    <div class="divider"></div>
+    <div class="section">
+    <footer> <strong> Fuentes Consultadas:</strong></footer>
+    </div>
     <ol>
         <li> UskoKruM2010 (16 de Febrero de 2023) Java VS JavaScript 👨‍💻 Comparación: Similitudes y Diferencias ✅ [Video]
              Recuperado de: https://www.youtube.com/watch?v=4EJjJMW6GTc </li>
@@ -114,7 +143,7 @@
         </li>
     </ol>
 
-
+</div>
     <script src="js.js"></script>
 </body>
 </html>

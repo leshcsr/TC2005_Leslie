@@ -71,3 +71,9 @@ let objeto = {
     atributo_2: "valor 2",
 }
 
+//Algomas
+
+document.getElementById("input_texto").onkeyup = ()=>{
+    let input = document.getElementById("input_texto").value;
+    document.getElementById("respuesta_texto").innerHTML = input;
+}
