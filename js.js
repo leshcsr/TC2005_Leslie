@@ -75,5 +75,7 @@ let objeto = {
 
 document.getElementById("input_texto").onkeyup = ()=>{
     let input = document.getElementById("input_texto").value;
+    console.log(input);
     document.getElementById("respuesta_texto").innerHTML = input;
+    
 }
