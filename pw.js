@@ -11,4 +11,7 @@ document.getElementById("password_2").onchange = ()=>{
     }
 }
 
+document.getElementById("parrafo").onmouseover= ()=>{
+    document.getElementById("parrafo").innerHTML = "Esta es la modificación correspondiente que ocurre al mover el raton sobre el texto"
+}
 
