@@ -1,4 +1,6 @@
-console.log("Hola desde ")
+console.log("Hola desde npm");
+console.log("Hola desde nodemon");
+
 
 function prom_arr(arr){
     let p = 0;
