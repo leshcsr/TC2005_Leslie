@@ -1,0 +1,25 @@
+{
+  "name": "tc2005_leslie",
+  "version": "1.0.0",
+  "description": "Ejemplos para Lab11",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leshcsr/TC2005_Leslie.git"
+  },
+  "keywords": [
+    "node",
+    "tec",
+    "lab11"
+  ],
+  "author": "Leslie Sanchez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leshcsr/TC2005_Leslie/issues"
+  },
+  "homepage": "https://github.com/leshcsr/TC2005_Leslie#readme"
+}
