@@ -84,32 +84,3 @@ app.use((request, response, next) => {
 });
 
 app.listen(3000);
-
-
-
-
-//Rutas
-/*
-app.use('/home', (request, response, next) => {
-    response.send('Respuesta de la ruta "/Home"'); 
-});
-
-
-El profe agrego un codigo que ya tenia
-^^^
-app.use('/pedir', (request, respose, next)=>{
-});*/
-
-//si ninguna ruta es valida
-/*
-    app.use((request, response, next) =>{
-        console.log('Otro Middleware');
-        response.status(404);
-        //Manda la respuesta
-        response.send('Ya no tenemos hot cakes');
-    })
-
-
-app.listen(3000);
-
-*/
