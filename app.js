@@ -44,39 +44,49 @@ w_sring("Lab 8");
 
 
 
-/*
-function string_string(pstring){
-    
-}
-
-
-
 console.log("Hola desde npm");
-console.log("Hola desde nodemon");*/
+console.log("Hola desde nodemon");
 
 
 //Copiado del Lab11
-/*
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const { request } = require('express');
+const path = require('path');
 
-const app = express();*/
+const app = express();
 
 
 //Middleware
-/*
+//Middleware
 app.use((request, response, next) => {
     console.log('Middleware!');
-    next(); //Le permite a la petición avanzar hacia el siguiente middleware
+    //Le permite a la petición avanzar hacia el siguiente middleware
+    next(); 
 });
+
+app.use('/home', (request, response, next) => {
+    response.send('Bienvenido a casa!'); 
+});
+
+const hotcakesRutas = require('./routes/hot_cakes.routes');
+
+app.use('/hot_cakes', hotcakesRutas);
 
 app.use((request, response, next) => {
     console.log('Otro middleware!');
-    response.send('¡Hola mundo!'); //Manda la respuesta
+
+    response.status(404);
+
+    //Manda la respuesta
+    response.send('Lo sentimos, ya no tenemos hot cakes'); 
 });
 
-app.listen(3000);*/
+app.listen(3000);
+
+
+
 
 //Rutas
 /*
