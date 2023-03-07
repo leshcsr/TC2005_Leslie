@@ -1,86 +1,63 @@
-//AQUI EMPIEZA EL LAB 8
+/*const http = require("http");
+const host = 'localhost';
+const port = 8080;
 
-const { resolve } = require('path');
+const requestListener = function (req, res) {
+    res.writeHead(200);
+    res.end("My first server!");
+};
 
-//Funcion que recibe un arreglo y devuelve su promedio
-function prom_arr(arr) {
-    let p = 0;
-    let acum = 0;
-    while(p <= arr.length-1){
-        acum = acum + arr[p];
-        p++;
-    }
-    return acum/arr.length;
-}
-let arreglo = [1, 6, 2, 3, 8];
-let a = prom_arr(arreglo);
-console.log("El promedio del arreglo es: "+a)
-
-//Funcion que recibe un string y escribe el string en un archivo de texto
-function w_sring(palabra) {
-    const fs = require('fs');
-    let escribir = new Promise((resolve, reject) => {
-        fs.writeFile('index.txt',palabra, (error)=>{
-            if(error){
-                reject(error);
-            }else{
-                resolve();
-            }
-        });
-    });
-
-    escribir.then( () =>{
-        console.log("¡Se añadio la palabra con exito!")
-    })
-    .catch((error) =>{
-        console.log("Ocurrio un error: ", error)
-    })
-        
-}
-w_sring("Lab 8");
-//Ortiz Ordoñez, J. [John Ortiz Ordoñez] (02 de febrero de 2023). JavaScript - Ejercicio 313:
-//Crear un Archivo de Texto Plano usando un Objeto Promise en Node.js [Video]. Recuperado de: 
-//https://www.youtube.com/watch?v=P9YdELzuuwc
-
-
-
-console.log("Hola desde npm");
-console.log("Hola desde nodemon");
-
-
-//Copiado del Lab11
-
-const express = require('express');
+const server = http.createServer(requestListener);
+server.listen(port, host, () => {
+    console.log(`Server is running on http://${host}:${port}`);
+});*/
 const bodyParser = require('body-parser');
-const { request } = require('express');
 const path = require('path');
-
+const session = require('express-session');
+const express = require('express');
 const app = express();
+const port = 3000;
 
+app.set('view engine', 'ejs');
+app.set('views', 'views');
 
-//Middleware
-//Middleware
+app.use(session({
+    secret: 'mi string secreto que debe ser un string aleatorio muy largo, no como éste', 
+    resave: false, //La sesión no se guardará en cada petición, sino sólo se guardará si algo cambió 
+    saveUninitialized: false, //Asegura que no se guarde una sesión para una petición que no lo necesita
+}));
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(bodyParser.urlencoded({extended: false}));
+
 app.use((request, response, next) => {
     console.log('Middleware!');
+
     //Le permite a la petición avanzar hacia el siguiente middleware
     next(); 
 });
 
 app.use('/home', (request, response, next) => {
+
     response.send('Bienvenido a casa!'); 
 });
 
-const hotcakesRutas = require('./routes/hot_cakes.routes');
+//const rutasUsers = require('./rutas/users.routes');
+
+//app.use('/users', rutasUsers);
+
+const hotcakesRutas = require('./rutas/hotcakes.routes');
 
 app.use('/hot_cakes', hotcakesRutas);
 
-app.use((request, response, next) => {
-    console.log('Otro middleware!');
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
+  
 
-    response.status(404);
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
 
-    //Manda la respuesta
-    response.send('Lo sentimos, ya no tenemos hot cakes'); 
-});
 
-app.listen(3000);
