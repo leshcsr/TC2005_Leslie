@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
-
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 
 
-app.use('/alguna-ruta', (request, response, next) => {
-    console.log(request.body);
-});
+const misRutas = require('./lab11.routes');
+app.use('/modulo', misRutas);
 
+const misRutas1 = require('./lab111.routes');
+app.use('/modulo1', misRutas1);
 
 //Middleware
 app.use((request, response, next) => {
@@ -18,7 +18,9 @@ app.use((request, response, next) => {
 
 app.use((request, response, next) => {
     console.log('Otro middleware!');
-    response.send('¡Hola mundo!'); //Manda la respuesta
+    response.status(404);
+    //Manda la respuesta
+    response.send('Lo sentimos, la página que intentas buscar no se encuentra. Verifique su marcación'); 
 });
 
 app.listen(8080);
