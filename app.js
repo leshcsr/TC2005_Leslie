@@ -21,6 +21,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 
 
+//const hotcakesRutas = require('./rutas/hotcakes.routes');
+//app.use('/hot_cakes', hotcakesRutas);
+
+//const hotcakesRutas = require('./rutas/hotcakes.routes');
+//app.use('/hot_cakes', hotcakesRutas);
+
+
 app.get('/', (req, res) => {
     res.send('Hello World!')
   })
