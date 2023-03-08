@@ -20,17 +20,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({extended: false}));
 
-
-//const hotcakesRutas = require('./rutas/hotcakes.routes');
-//app.use('/hot_cakes', hotcakesRutas);
-
-//const hotcakesRutas = require('./rutas/hotcakes.routes');
-//app.use('/hot_cakes', hotcakesRutas);
+const lab10Rutas = require('./lab10.routes');
+app.use('/lab10', lab10Rutas);
 
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
   })
+
+
+  app.use((request, response, next) => {
+    console.log('Otro middleware!');
+
+    response.status(404);
+
+    //Manda la respuesta
+    response.send('Lo sentimos, la página que intentas buscar no se encuentra. Verifique su marcación'); 
+});
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
