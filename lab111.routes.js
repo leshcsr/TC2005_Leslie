@@ -11,4 +11,12 @@ router.get('/ruta5', (request, response, next) => {
     response.send(html);
 });
 
+//Usamos el metodo POST 
+router.post('/ruta4', (request, response, next) => {
+    console.log(request.body)
+});
+router.post('/ruta5', (request, response, next) => {
+    console.log(request.body)
+});
+
 module.exports = router;
