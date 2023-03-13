@@ -1,5 +1,5 @@
 const express = require('express');
-
+const path = require('path');
 const router = express.Router();
 
 const hot_cakes = [
@@ -69,9 +69,6 @@ const hot_cakes = [
     },
 ];
 
-router.get('/lista', (request, response, next) => {
-    response.render('lista', {hot_cakes: hot_cakes});
-});
 
 router.get('/ruta1', (request, response, next) => {
     let html = `
@@ -115,11 +112,15 @@ router.get('/ruta1', (request, response, next) => {
     response.send(html);
 });
 
-
-router.get('/ruta3', (request, response, next) => {
-    let html = '';
+router.get('/ruta2', (request, response, next) => {
+    let html = '<p>Regresa, no has pedido hot Cakes</p>';
     response.send(html);
 });
+
+router.get('/ruta3', (request, response, next) => {
+    response.render('lista', {hot_cakes: hot_cakes});
+});
+
 
 //Usamos el metodo POST 
 router.post('/ruta1', (request, response, next) => {
