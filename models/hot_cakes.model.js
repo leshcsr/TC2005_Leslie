@@ -87,4 +87,11 @@ module.exports = class HotCake {
         return hot_cakes;
     }
 
+
+    //Este metodo serverá para para guardar de manera persistente el nuevo objeto
+    save(){
+        hot_cakes.push(this);
+    }
+
+
 }
