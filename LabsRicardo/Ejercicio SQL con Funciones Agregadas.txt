@@ -1,0 +1,128 @@
+/*
+	Mostrar la descripcion de los materiales entregados al proyecto 'CIT Yucatan'
+    Ordenados por fecha
+*/
+
+/*Mostrar el dato que quiero*/
+SELECT descripcion
+/*Importar las tablas que voy a ocupar*/
+FROM materiales M, entregan E, proyectos P
+/*Igualar llaves*/
+WHERE M.clave = E.clave
+AND E.numero = P.numero
+/*Poner condiciones*/
+AND denominacion = 'CIT Yucatan'
+/*Ordenar por fecha*/
+ORDER BY Fecha 
+
+
+
+
+/*Debido al incremento de los precios, se solicita  que genere una tabla con los precios
+actualizados de los materiales, en un 15%... No se pide que se actualice el valor original, 
+se pide que muestre el incremento tentativo*/
+
+/*Selecciono el dato que quiero ya modificado*/
+SELECT clave, descripcion, precio as 'Precio Actual', precio *1.15 as 'Precio Actualizado' 
+FROM materiales
+ORDER BY precio
+
+
+
+/*DEscripcion del material, y el total de unidades entregadas (por cada material), solo de aquellos materiales con entregas de unidades mayores a 1000 unidades, ordenados de mayor a menor (total unidades)*/
+
+SELECT M.descripcion, SUM(E.cantidad) as 'Total'
+FROM materiales M, entregan E
+WHERE M.clave = E.clave
+GROUP BY m.descripcion
+HAVING SUM( E.cantidad )> 1000
+ORDER BY SUM(E.cantidad) DESC;
+
+
+
+/*Razon Social de los provedores que entregaron mas unidades que el proveedor con razon social 'Comex'*/
+
+SELECT P.razonsocial, SUM(E.cantidad) as 'Total U Agregadas' 
+FROM proveedores P, entregan E
+WHERE P.rfc = E.rfc
+GROUP BY P.razonsocial
+HAVING SUM(e.cantidad) >(SELECT SUM(e.cantidad) FROM entregan as e, proveedores as p WHERE p.rfc = e.rfc AND p.razonsocial = 'COMEX')
+ORDER BY SUM(e.cantidad) DESC;
+
+-------------------------------------------------------------
+/*FORMATO GENERAL PARA CONSULTAS CON FUNCIONES AGREGADAS*/
+
+SELECT Columnas, [funciones agregadas]
+FROM tablas[vistas]
+WHERE [Join Natural] + [condiciones]
+GROUP BY [Especificar columnas que no usan funciones aagregadas ]
+HAVING [Codiciones sobre las funciones agregadas]
+ORDER BY [Columnas por ordenar]
+
+
+/*El ingreso total recibido por cada actor, sin importar en cuantas películas haya participado.
+*/
+
+SELECT nombre, SUM(sueldo) as 'total de ingresos'
+FROM elenco
+GROUP BY nombre
+ORDER BY SUM(sueldo) DESC
+
+/* El monto total destinado a películas por cada Estudio Cinematográfico, durante la década de los 80's.*/
+
+SELECT titulo, nomestudio, SUM(presupuesto), año
+FROM Pelicula
+WHERE año>1979 AND año<1990
+GROUP BY titulo, nomestudio, año
+ORDER BY presupuesto DESC
+
+/*Nombre y sueldo promedio de los actores (sólo hombres) que reciben en promedio un pago superior a 5 millones de dolares por película.*/
+
+SELECT nombre, AVG(sueldo)
+FROM Elenco E, Actor A
+WHERE E.nombre = A.nombre
+AND sexo = 'H'
+AND AVG(sueldo) > 5000000
+GROUP BY nombre
+ORDER BY AVG(sueldo) DESC
+
+/* Título y año de producción de las películas con menor presupuesto. (Por ejemplo, la película de Titanic se ha producido en varias veces entre la lista de películas estaría la producción de Titanic y el año que fue filmada con menor presupuesto).*/
+
+SELECT titulo, año, MIN(presupuesto)
+FROM Pelicula
+GROUP BY titulo, año
+ORDER BY MIN(presupuesto) ASC
+
+/*Mostrar el sueldo de la actriz mejor pagada.*/
+
+SELECT nombre, sueldo
+FROM Elenco
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
