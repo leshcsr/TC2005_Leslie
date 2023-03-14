@@ -2,11 +2,26 @@ const HotCake = require('../models/lab13.model');
 
 exports.get_lista = (request, response, next) => {
     response.render('lista', {hot_cakes: HotCake.fetchAll()});
-}
+};
 
 exports.get_nuevo = (request, response, next) => {
     response.render('nuevo');
-}
+};
+
+exports.post_nuevo = (request, response, next) => {
+    
+    const hot_cake = new HotCake({
+        nombre: request.body.nombre,
+        descripcion: request.body.descripcion,
+        handle: request.body.handle,
+        ingredientes: request.body.ingredientes,
+        precio: request.body.precio,
+    });
+    
+    hot_cake.save();
+    
+    response.status(300).redirect('/hot_cakes/lista');
+};
 
 exports.get_pedir = (request, response, next) => {
     let html = `
@@ -22,7 +37,7 @@ exports.get_pedir = (request, response, next) => {
             <div class="container is-max-desktop">
             <div class="notification is-primary">
                 <h1>Hot cakes</h1>
-                <form action="/modulo/ruta2" method="POST">
+                <form action="/modulo/pedir" method="POST">
                     <fieldset>
                         <legend>Escoge tu desayuno:</legend>
                         <div>
