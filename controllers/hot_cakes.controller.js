@@ -33,7 +33,7 @@ exports.post_nuevo = (request, response, next) => {
 
     request.session.ultimo_hot_cake = hot_cake.nombre;
     
-    response.status(300).redirect('/hot_cakes/lista');
+    response.status(300).redirect('/modulo/lista');
 };
 
 exports.get_pedir = (request, response, next) => {

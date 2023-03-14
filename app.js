@@ -22,6 +22,9 @@ app.use((request, response, next) => {
     next(); //Le permite a la petición avanzar hacia el siguiente middleware
 });
 
+const rutasUsers = require('./routes/users.routes');
+app.use('/users', rutasUsers);
+
 const misRutas = require('./routes/lab14.routes');
 app.use('/modulo', misRutas);
 
