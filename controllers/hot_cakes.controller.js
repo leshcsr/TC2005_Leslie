@@ -1,8 +1,11 @@
-const HotCake = require('../models/lab13.model');  
+const higienicos = require('../models/lab13.model');  
 
 exports.get_lista = (request, response, next) => {
-    response.render('lista', {hot_cakes: HotCake.fetchAll()});
+    response.render('lista', {higienicos: higienicos.fetchAll()});
 };
+
+
+
 
 exports.get_nuevo = (request, response, next) => {
     response.render('nuevo');

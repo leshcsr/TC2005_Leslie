@@ -1,39 +1,39 @@
 <%- include('includes/head.ejs') %>
 
-<h1 class="title">Menú</h1>
-<a href="../views/nuevo" class="button is-link is-rounded">Registrar</a>
+<h1 class="title">Pide tus higienicos</h1>
 
+<h3 class="title is-3">Shampoo</h3>
 <br><br>
 
-<% if (hot_cakes.length > 0) { %>
+<% if (higienicos.length > 0) { %>
     <div class="columns is-multiline">
-        <% for (let hot_cake of hot_cakes) { %>
+        <% for (let higienico of higienicos) { %>
             <div class="column is-3">
                 <div class="card">
                     <div class="card-image">
                         <figure class="image is-4by3">
-                            <img src="<%= hot_cake.imagen %>" alt="Placeholder image">
+                            <img src="<%= higienico.imagen %>" alt="Placeholder image">
                         </figure>
                     </div>
                     <div class="card-content">
                         <div class="media">
                             <div class="media-left">
                             <figure class="image is-48x48">
-                                <img src="<%= hot_cake.imagen %>" alt="Placeholder image">
+                                <img src="<%= higienico.imagen %>" alt="Placeholder image">
                             </figure>
                             </div>
                             <div class="media-content">
-                            <p class="title is-4"><%= hot_cake.nombre %></p>
-                            <p class="subtitle is-6"><%= hot_cake.handle %> $<%= hot_cake.precio %> </p>
+                            <p class="title is-4"><%= higienico.nombre %></p>
+                            <p class="subtitle is-6"><%= higienico.handle %> $<%= higienico.precio %> </p>
                             </div>
                         </div>
                     
                         <div class="content">
-                            <%= hot_cake.descripcion %> 
+                            <%= higienico.descripcion %> 
                             <br>
                             Ingredientes:
                             <br>
-                            <%= hot_cake.ingredientes %> 
+                            <%= higienico.ingredientes %> 
                         </div>
                     </div>
                 </div>
@@ -41,11 +41,9 @@
         <% } %>
     </div>
 <% } else { %>
-    <h1>No hay hot cakes >:( </h1>
+    <h1>No puedes pedir higienicos >:( </h1>
 <% } %>   
 
     <br><br>
-    <a href="/hot_cakes/nuevo" class="button is-link is-rounded">Registrar</a>
-
 
 <%- include('includes/foot.ejs') %>
