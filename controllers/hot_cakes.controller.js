@@ -3,6 +3,11 @@ const HotCake = require('../models/lab13.model');
 exports.get_lista = (request, response, next) => {
     response.render('lista', {hot_cakes: HotCake.fetchAll()});
 }
+
+exports.get_nuevo = (request, response, next) => {
+    response.render('nuevo');
+}
+
 exports.get_pedir = (request, response, next) => {
     let html = `
         <!DOCTYPE html>

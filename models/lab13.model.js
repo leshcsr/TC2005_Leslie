@@ -75,7 +75,6 @@ module.exports = class HotCake {
         this.ingredientes = mi_hot_cake.ingredientes || "mantequilla, harina, huevo y leche";
         this.precio = mi_hot_cake.precio || "150";
     }
-
     save() {
         hot_cakes.push(this);
     }
