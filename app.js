@@ -15,11 +15,8 @@ app.use((request, response, next) => {
     next(); //Le permite a la petición avanzar hacia el siguiente middleware
 });
 
-const misRutas = require('./routes/lab13.routes');
-app.use('/modulo', misRutas);
-
-const misRutas1 = require('./routes/lab1313.routes');
-app.use('/modulo1', misRutas1);
+const misRutas = require('./routes/higienicos.routes');
+app.use('/higienicos', misRutas);
 
 
 app.use((request, response, next) => {
