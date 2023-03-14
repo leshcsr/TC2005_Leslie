@@ -1,7 +1,18 @@
-const HotCake = require('../models/lab13.model');  
+const HotCake = require('../models/lab14.model');  
 
 exports.get_lista = (request, response, next) => {
-    response.render('lista', {hot_cakes: HotCake.fetchAll()});
+    const cookies = request.get('Cookie') || '';
+    let consultas = cookies.split('=')[1] || 0;
+    consultas++;
+
+    response.setHeader('Set-Cookie', 'consultas=' + consultas + '; HttpOnly');
+
+    response.render('lista', { 
+        hot_cakes: HotCake.fetchAll(),
+        ultimo_hot_cake: request.session.ultimo_hot_cake || '',
+    });
+
+
 };
 
 exports.get_nuevo = (request, response, next) => {
@@ -19,6 +30,8 @@ exports.post_nuevo = (request, response, next) => {
     });
     
     hot_cake.save();
+
+    request.session.ultimo_hot_cake = hot_cake.nombre;
     
     response.status(300).redirect('/hot_cakes/lista');
 };
