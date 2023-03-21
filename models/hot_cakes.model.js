@@ -1,22 +1,6 @@
 const db = require('../util/database');
 
-const hot_cakes = [
-    {
-        nombre: "belgas",
-        imagen: "https://t1.uc.ltmcdn.com/es/posts/8/9/7/como_hacer_waffles_con_harina_de_hot_cakes_50798_paso_5_600.jpg",
-        descripcion: "Hot cakes ricos",
-        handle: "@belgas",
-        ingredientes: "harina, huevo, mantequilla de normandía",
-        precio: "150",
-    },
-    {
-        nombre: "avena",
-        imagen: "https://www.recetasnestle.com.mx/sites/default/files/srh_recipes/99c36783d5de1a8cc8ab4a1494bcf111.jpg",
-        descripcion: "Hot cakes ricos de avena",
-        handle: "@avena",
-        ingredientes: "harina de avena, huevo, mantequilla, plátano",
-        precio: "150",
-    },
+/*const hot_cakes = [
     {
         nombre: "japoneses",
         imagen: "https://www.keyingredient.com/media/09/82/b08496cd78ddbd4bdda4f441160ddc6d4b15.jpg/rh/japanese-hot-cake.jpg",
@@ -65,7 +49,7 @@ const hot_cakes = [
         ingredientes: "harina, huevo, mantequilla, leche, dispensador",
         precio: "80",
     },
-];
+];*/
 
 module.exports = class HotCake {
 
@@ -81,17 +65,20 @@ module.exports = class HotCake {
 
     //Este método servirá para guardar de manera persistente el nuevo objeto. 
     save() {
-        hot_cakes.push(this);
+        return db.execute(
+            `INSERT INTO hotcakes(nombre, imagen, descripcion, handle, precio) 
+            VALUES(?, ?, ?, ?, ?)`,
+            [this.nombre, this.imagen, this.descripcion, this.handle, this.precio]
+        );
     }
 
     //Este método servirá para devolver los objetos del almacenamiento persistente.
-    static fetchAll() {
-        return db.execute('SELECT * FROM hotcakes');
-    }
-
-
-    //Este metodo serverá para para guardar de manera persistente el nuevo objeto
-    save(){
-        hot_cakes.push(this);
+    static fetch(id) {
+        let query = `SELECT * FROM hotcakes`;
+        if (id != 0) {
+            query += ' WHERE id = ?'
+            return db.execute(query, [id]);
+        } 
+        return db.execute(query);
     }
 }

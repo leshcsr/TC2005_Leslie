@@ -11,20 +11,22 @@ exports.get_lista = (request, response, next) => {
     //Crear una cookie
     response.setHeader('Set-Cookie', 'consultas=' + consultas + '; HttpOnly');
 
-    HotCake.fetchAll()
-        .then(([rows, fieldData]) => {
-            console.log(rows);
-            //console.log(fieldData);
-            
-            response.render('lista', { 
-                hot_cakes: rows,
-                ultimo_hot_cake: request.session.ultimo_hot_cake || '',
-            });
-        })
-        .catch(error => {
-            console.log(error);
-         });    
-     };
+    const id = request.params.id || 0;  
+    
+    HotCake.fetch(id)
+    .then(([rows, fieldData]) => {
+        console.log(rows);
+        //console.log(fieldData);
+
+        response.render('lista', { 
+            hot_cakes: rows,
+            ultimo_hot_cake: request.session.ultimo_hot_cake || '',
+    });
+    })
+    .catch(error => {
+        console.log(error);
+    });
+};
 
      exports.get_nuevo = (request, response, next) => {
     response.render('nuevo');
@@ -40,11 +42,12 @@ exports.post_nuevo = (request, response, next) => {
         precio: request.body.precio,
     });
 
-    hot_cake.save();
-
-    request.session.ultimo_hot_cake = hot_cake.nombre;
-
-    response.status(300).redirect('/hot_cakes/lista');
+        hot_cake.save()
+        .then(([rows, fieldData]) => {
+            request.session.ultimo_hot_cake = hot_cake.nombre;
+            response.status(300).redirect('/hot_cakes/lista');
+        })
+        .catch(error => console.log(error));
 };
 
 exports.get_pedir = (request, response, next) => {
