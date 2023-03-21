@@ -11,13 +11,22 @@ exports.get_lista = (request, response, next) => {
     //Crear una cookie
     response.setHeader('Set-Cookie', 'consultas=' + consultas + '; HttpOnly');
 
-    response.render('lista', { 
-        hot_cakes: HotCake.fetchAll(),
-        ultimo_hot_cake: request.session.ultimo_hot_cake || '',
-    });
-};
+    HotCake.fetchAll()
+        .then(([rows, fieldData]) => {
+            console.log(rows);
+            //console.log(fieldData);
+            
+            response.render('lista', { 
+                hot_cakes: rows,
+                ultimo_hot_cake: request.session.ultimo_hot_cake || '',
+            });
+        })
+        .catch(error => {
+            console.log(error);
+         });    
+     };
 
-exports.get_nuevo = (request, response, next) => {
+     exports.get_nuevo = (request, response, next) => {
     response.render('nuevo');
 };
 

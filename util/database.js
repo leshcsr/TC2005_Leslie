@@ -6,3 +6,5 @@ const pool = mysql.createPool({
     database: 'hot_cakes',
     password: '',
 });
+
+module.exports = pool.promise();
