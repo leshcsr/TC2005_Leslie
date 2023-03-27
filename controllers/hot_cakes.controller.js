@@ -42,12 +42,15 @@ exports.get_nuevo = (request, response, next) => {
 
 exports.post_nuevo = (request, response, next) => {
 
+    console.log(request.file);
+
     const hot_cake = new HotCake({
         nombre: request.body.nombre,
         descripcion: request.body.descripcion,
         handle: request.body.handle,
         ingredientes: request.body.ingredientes,
         precio: request.body.precio,
+        imagen: request.file.filename,
     });
 
     hot_cake.save()
