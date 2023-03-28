@@ -3,7 +3,7 @@
 <h1 class="title">Menú</h1>
 
 <% if(privilegios.indexOf('crear_hotcakes') >= 0) { %>
-<a href="/hot_cakes/nuevo" class="button is-link is-rounded">Registrar</a>
+    <a href="/hot_cakes/nuevo" class="button is-link is-rounded">Registrar</a>
 <% } %>
 
 <br><br>
@@ -15,14 +15,14 @@
                 <div class="card">
                     <div class="card-image">
                         <figure class="image is-4by3">
-                            <img src="<%= hot_cake.imagen %>" alt="Placeholder image">
+                            <img src="/uploads/<%= hot_cake.imagen %>" alt="Placeholder image">
                         </figure>
                     </div>
                     <div class="card-content">
                         <div class="media">
                             <div class="media-left">
                             <figure class="image is-48x48">
-                                <img src="<%= hot_cake.imagen %>" alt="Placeholder image">
+                                <img src="/uploads/<%= hot_cake.imagen %>" alt="Placeholder image">
                             </figure>
                             </div>
                             <div class="media-content">
@@ -56,7 +56,7 @@
 <% } %>
 
 <% if(privilegios.indexOf('crear_hotcakes') >= 0) { %>
-<a href="/hot_cakes/nuevo" class="button is-link is-rounded">Registrar</a>
+    <a href="/hot_cakes/nuevo" class="button is-link is-rounded">Registrar</a>
 <% } %>
 
 <%- include('includes/foot.ejs') %>

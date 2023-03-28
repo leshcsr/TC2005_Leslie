@@ -30,10 +30,13 @@ const fileStorage = multer.diskStorage({
     filename: (request, file, callback) => {
         //aquí configuramos el nombre que queremos que tenga el archivo en el servidor, 
         //para que no haya problema si se suben 2 archivos con el mismo nombre concatenamos el timestamp
-        //En Windows
-        callback(null, new Date().getMilliseconds() + '-' + file.originalname);
-        //En Mac
-        //callback(null, new Date().toISOString() + '-' + file.originalname);
+        callback(null,
+            //En Mac 
+            new Date().toISOString() 
+            //En Windows
+            //new Date().getMilliseconds()
+            + '-' + file.originalname
+            );
     },
 });
 
@@ -42,6 +45,7 @@ const fileStorage = multer.diskStorage({
 //pero hay diferentes opciones si se quieren subir varios archivos. 
 //'archivo' es el nombre del input tipo file de la forma
 app.use(multer({ storage: fileStorage }).single('imagen')); 
+
 
 const csrfProtection = csrf();
 app.use(csrfProtection); 
