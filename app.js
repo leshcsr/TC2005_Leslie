@@ -20,6 +20,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 //fileStorage: Es nuestra constante de configuración para manejar el almacenamiento
 const fileStorage = multer.diskStorage({
@@ -32,9 +33,9 @@ const fileStorage = multer.diskStorage({
         //para que no haya problema si se suben 2 archivos con el mismo nombre concatenamos el timestamp
         callback(null,
             //En Mac 
-            new Date().toISOString() 
+            //new Date().toISOString() 
             //En Windows
-            //new Date().getMilliseconds()
+            new Date().getMilliseconds()
             + '-' + file.originalname
             );
     },
