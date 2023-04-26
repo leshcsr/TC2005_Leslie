@@ -51,6 +51,15 @@ exports.get_nuevo = (request, response, next) => {
     });
 };
 
+exports.get_mapa = (request, response, next) => {
+    response.render('mapa', {
+        isLoggedIn: request.session.isLoggedIn || false,
+        nombre: request.session.nombre || '',
+        csrfToken: request.csrfToken(), 
+    });
+};
+
+
 exports.post_nuevo = (request, response, next) => {
 
     console.log(request.file);

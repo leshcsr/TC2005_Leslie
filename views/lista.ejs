@@ -60,9 +60,13 @@
     </div>
 <% } %>
 
+
 <% if(privilegios.indexOf('crear_hotcakes') >= 0) { %>
     <a href="/hot_cakes/nuevo" class="button is-link is-rounded">Registrar</a>
 <% } %>
+    <a href="/hot_cakes/mapa" class="button is-link is-rounded">Ver mapa</a>
+
+
 
 <script>
     document.getElementById("buscar").onkeyup = () => {
@@ -127,7 +131,7 @@
             console.log(error);
         });
     }
-    
+
 
 </script>
 

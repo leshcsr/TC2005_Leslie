@@ -12,6 +12,8 @@ router.get('/lista/:id', hot_cakesController.get_lista);
 
 router.get('/lista', hot_cakesController.get_lista);
 
+router.get('/mapa', hot_cakesController.get_mapa);
+
 router.get('/nuevo', hasCreate, hot_cakesController.get_nuevo);
 
 router.post('/nuevo', hasCreate, hot_cakesController.post_nuevo);

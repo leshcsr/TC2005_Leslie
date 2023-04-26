@@ -1,0 +1,96 @@
+<%- include('includes/head.ejs') %>
+
+<br>
+<h1 class="title">Utiliza el mapa para buscar hotcakes</h1>
+
+<br>
+<input id="search-input" type="text" placeholder="Buscar hotcakes" class="input is-info">
+<br>
+<%- include('includes/foot.ejs') %>
+<br><br>
+    <div id="map"> <p>Si estas en la ruta correcta</p></div>
+<br><br>
+<script
+      src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyCsCxfzmrJpXXvv1bU-vXxOYZWHtTsyAwY&callback=initMap&libraries=places&v=3.51"
+      defer
+    ></script>
+<script>
+	// This example requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+let map;
+let service;
+let infowindow;
+
+function initMap() {
+  const qro = new google.maps.LatLng( 20.58806, -100.38806);
+
+  infowindow = new google.maps.InfoWindow();
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: qro,
+    zoom: 11,
+  });
+
+  const input = document.getElementById("search-input");
+  const searchBox = new google.maps.places.SearchBox(input);
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  map.addListener("bounds_changed", () => {
+    searchBox.setBounds(map.getBounds());
+  });
+
+  const markers = [];
+  searchBox.addListener("places_changed", () => {
+    const places = searchBox.getPlaces();
+
+    if (places.length === 0) {
+      return;
+    }
+
+    markers.forEach((marker) => {
+      marker.setMap(null);
+    });
+    markers.length = 0;
+
+    const bounds = new google.maps.LatLngBounds();
+    places.forEach((place) => {
+      if (!place.geometry || !place.geometry.location) {
+        console.log("Returned place contains no geometry");
+        return;
+      }
+
+      const marker = new google.maps.Marker({
+        map,
+        position: place.geometry.location,
+      });
+      markers.push(marker);
+
+      if (place.geometry.viewport) {
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
+  });
+}
+
+function createMarker(place) {
+  if (!place.geometry || !place.geometry.location) return;
+
+  const marker = new google.maps.Marker({
+    map,
+    position: place.geometry.location,
+  });
+
+  google.maps.event.addListener(marker, "click", () => {
+    infowindow.setContent(place.name || "");
+    infowindow.open(map);
+  });
+}
+
+window.initMap = initMap;
+
+</script>
+
+
