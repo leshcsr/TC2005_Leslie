@@ -59,6 +59,42 @@ exports.get_mapa = (request, response, next) => {
     });
 };
 
+exports.get_graficas = async (req, res, next) => {
+    try {
+      const [rows, fields] = await HotCake.getPokemones();
+  
+      const labels = [];
+      const data = [];
+  
+      rows.forEach(row => {
+        labels.push(row.nombre);
+        data.push(row.cantidad);
+      });
+  
+      const datos = {
+        labels: labels,
+        datasets: [
+          {
+            label: 'Pokemones',
+            backgroundColor: 'rgb(0,0,0)',
+            data: data
+          }
+        ]
+      };
+  
+      res.render('graficas', { 
+        datos,
+        datosJSON: JSON.stringify(datos),
+        isLoggedIn: req.session.isLoggedIn || false,
+        nombre: req.session.nombre || '',
+        csrfToken: req.csrfToken(), 
+      });
+  
+    } catch (err){
+      console.log(err);
+    }
+  };
+  
 
 exports.post_nuevo = (request, response, next) => {
 
@@ -128,3 +164,4 @@ exports.post_pedir = (request, response, next) => {
 exports.get_pedido = (request, response, next) => {
     response.sendFile(path.join(__dirname, '..', 'views', 'index.html'));
 }
+

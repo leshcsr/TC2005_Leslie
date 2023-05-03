@@ -1,115 +1,44 @@
-// variables, constantes, consola (log, info, warn, error, assert)
-var desayuno = "hot cakes";
+const pokemonContainer = document.querySelector(".pokemon-container");
 
-let comida = "alitas";
+function fetchPokemon(id) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+      .then((res) => res.json())
+      .then((data) => {
+        createPokemon(data);
+      });
+  }
 
-const precio = 120;
-
-console.log("Hola");
-console.info("No hay descuentos, el precio es: " + precio);
-console.warn("No le vayas a cambiar el precio");
-console.error("Que no le vayas a cambiar el precio");
-
-console.assert(1 === 1);
-console.assert(1 == 1);
-console.assert(1 === "1");
-console.assert(1 == "1");
-console.assert(1 == true);
-console.assert(1 === true);
-
-// Alcance de las variables
-for (var i = 1; i <= 10; i++) {
-
-}
-console.log(i);
-
-for (let j = 1; j <= 10; j++) {
-
-}
-//console.log(j);
-
-
-// funciones tradicionales
-function numero_alitas() {
-    return 12;
+function fetchPokemons(number) {
+    for (let i = 1; i <= number; i++) {
+      fetchPokemon(i);
+    }
 }
 
-console.log(numero_alitas());
+function createPokemon(pokemon) {
+    const card = document.createElement('div');
+    card.classList.add('pokemon-block');
+    
+    const sprinteContainer = document.createElement('div');
+    sprinteContainer.classList.add('img-container');
 
-//arrow function
-let cantidad_alitas = () => { return 12 };
-console.log(cantidad_alitas());
+    const sprite = document.createElement('img');
+    sprite.src = pokemon.sprites.front_default;
 
-let boton = document.getElementById("contador_clicks");
-boton.innerHTML = "Cuenta clicks!";
+    sprinteContainer.appendChild(sprite);
 
-boton.onclick = () => {
-    let contador_clicks = Number(document.getElementById("clicks").innerHTML);
-    contador_clicks++;
-    console.log(contador_clicks);
-    document.getElementById("clicks").innerHTML = contador_clicks;
+    const number = document.createElement('p');
+    number.textContent = `#${pokemon.id.toString().padStart(3,0)}`;
 
-    //Lista con estilos de colores de botones
-    const colores = [
-        "is-primary",
-        "is-link", 
-        "is-info",
-        "is-success",
-        "is-warning",
-        "is-danger",
-        "is-dark",
-        "is-black"
-    ];
+    const name = document.createElement('p');
+    name.classList.add('name');
+    name.textContent = pokemon.name;
 
-    //Generar un índice de lista aleatorio
-    const index = Math.floor(Math.random() * colores.length);
+    card.appendChild(sprinteContainer);
+    card.appendChild(number);
+    card.appendChild(name);
 
-    //Agregar la clase button por default
-    boton.classList = ["button"];
+    pokemonContainer.appendChild(card);
 
-    //Agregar una clase de la lista de clases de manera aleatoria
-    boton.classList.add(colores[index]);
 }
 
-
-// arreglos
-const arreglo = ["Elemento"];
-arreglo.push("Otro elemento");
-arreglo["dos"] = 2;
-arreglo.length = 10;
-console.log(arreglo);
-
-//Recorre los valores del arreglo
-for (let valor of arreglo) {
-    console.log(valor);
-}
-
-//Recorre los índices del arreglo
-for (let elemento in arreglo) {
-    console.log(elemento);
-}
-
-
-//Objetos
-let objeto = {
-    atributo_1: "valor 1",
-    atributo_2: 2
-}
-
-objeto.atributo_3 = arreglo;
-
-console.log(objeto);
-
-console.log(objeto.atributo_1);
-
-for (let atributo in objeto) {
-    console.log(atributo);
-}
-
-document.getElementById("input_texto").onkeyup = () => {
-    let input = document.getElementById("input_texto").value;
-
-    let reverse = document.getElementById("input_texto").value.split(" ").reverse().join(" ");
-
-    document.getElementById("texto_respuesta").innerHTML = reverse;
-}
+fetchPokemons(9);

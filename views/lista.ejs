@@ -5,6 +5,7 @@
 <% if(privilegios.indexOf('crear_hotcakes') >= 0) { %>
     <a href="/hot_cakes/nuevo" class="button is-link is-rounded">Registrar</a>
 <% } %>
+    <a href="/hot_cakes/graficas" class="button is-link is-rounded">Ver graficas</a>
 
 <br><br>
 <label for="buscar">Buscar:</label>
@@ -66,7 +67,7 @@
 <% } %>
     <a href="/hot_cakes/mapa" class="button is-link is-rounded">Ver mapa</a>
 
-
+    <br>
 
 <script>
     document.getElementById("buscar").onkeyup = () => {

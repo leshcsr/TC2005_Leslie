@@ -45,4 +45,10 @@ module.exports = class HotCake {
         );
     }
 
+    static getPokemones() {
+        let query = `SELECT nombre, cantidad FROM pokedex`;
+        
+        return db.execute(query);
+    }
+
 }

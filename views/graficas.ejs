@@ -1,0 +1,105 @@
+<%- include('includes/head.ejs') %>
+<head>
+    <link rel="stylesheet" href="/css.css">
+</head>
+<h1 class="title is-1">Este es un espacio de pokemones</h1>
+<h4 class="subtitle is-4">Aquí no hay nada relacionado con los hot cakes. Disfruta y aprende cosas que no sabías.</h4>
+
+<br><br>
+
+<div style="display: flex; justify-content: center;">
+    <div style="width: 50%; margin-right: 100px;">
+      <p class="subtitle is-5">Pokemones por elemento</p>
+      <canvas id="grafica1" width="200" height="150"></canvas>
+    </div>
+    <div style="width: 50%;">
+      <p class="subtitle is-5">Pokemones por Pokedex</p>
+      <canvas id="grafica2" width="200" height="150" data-datos="<%= datosJSON %>"></canvas>
+    </div>
+  </div>
+
+  <br><br>
+  <h1 class="title is-1">Revisa nuestra mini Pokedex</h1>
+
+  <div class="pokemon-container"></div>
+  
+  <nav class="buttons has-addons" aria-label="...">
+      <ul class="pagination">
+        <li class="button" id="previous">
+          <a class="page-link" href="#" tabindex="-1">Anterior</a>
+        </li>
+        <li class="button" id="next">
+          <a class="page-link" href="#">Siguiente</a>
+        </li>
+      </ul>
+    </nav>
+  
+    <!--
+    <div id="spinner" class="button is-loading text-light" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+     -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script src="/js/js.js"></script>
+<script>
+
+    let grafica_1 = document.getElementById("grafica1").getContext("2d");
+    //let grafica_2= document.getElementById("grafica2").getContext("2d");
+
+    let chart1 = new Chart(grafica_1, {
+        type: "polarArea",
+        data: {
+            labels: ["Agua", "Fuego", "Electrico", "Aire"],
+            datasets:[
+                {
+                    label: "Pokemones",
+                    backgroundColor: ["rgb(42,0,255)","rgb(255,0,0)","rgb(147,91,57)","rgb(100,200,200)" ],
+                    data: [131,85,75,113],
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                } 
+            }
+        }        
+    });
+
+    let canvas_2 = document.getElementById("grafica2");
+    let datosJSON = canvas_2.getAttribute("data-datos");
+    let datos = JSON.parse(datosJSON);
+    let datosRegion = datos.datasets[0].data;
+    let kanto = datosRegion[0];
+    let Johto = datosRegion[1];
+    let Hoenn = datosRegion[2];
+    let Sinnoh = datosRegion[3];
+    let Teselia = datosRegion[4];
+    let Kalos = datosRegion[5];
+
+    let chart2 = new Chart(canvas_2, {
+        type: "bar",
+        data: {
+            labels: datos.labels,
+            datasets: [
+                {
+                label: "Pokemones",
+                backgroundColor: ["#eb445b","#d1e389","#f1e7c5","#b6d4bb", "#51445f", "#e1b7ed" ],
+                data: [kanto, Johto, Hoenn, Sinnoh, Teselia, Kalos],
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                } 
+            }
+        }
+
+        
+    });
+
+</script>
